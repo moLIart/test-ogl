@@ -162,17 +162,18 @@ static void MatMakeOrtho2D(mat4f& m, float left, float right, float bottom, floa
 
 }
 
-
+/* https://www.geertarien.com/blog/2017/07/30/breakdown-of-the-lookAt-function-in-OpenGL/ */
 static void MatMakeLookAt(mat4f& m, const vec3f& CamTo, const vec3f& CamFrom, vec3f& CamUp) {
 	/* Gram–Schmidt process */
-	vec3f zaxis = CamFrom - CamTo;
+	vec3f zaxis = CamTo - CamFrom;
 	zaxis.normalize();
 
-	vec3f xaxis = cross(CamUp.normalize(), zaxis);
+	vec3f xaxis = cross(zaxis, CamUp.normalize());
 	xaxis.normalize();
 
-	vec3f yaxis = cross(zaxis, xaxis);
+	vec3f yaxis = cross(xaxis, zaxis);
 
+	zaxis = -zaxis;
 	/* Setup matrix */
 	m.Identity();
 	m.m11 = xaxis[0]; m.m21 = xaxis[1]; m.m31 = xaxis[2]; m.m41 = -dot(xaxis, CamFrom);
