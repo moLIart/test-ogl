@@ -1,5 +1,8 @@
 *.filters
 *.user
+*.exe
+*.ilk
+*.pdb
 
-.out/*
+.out/Debug/*
 .vs/*

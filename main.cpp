@@ -131,7 +131,10 @@ int main(int argc, char* argv[]) {
 
 		mat4f lookat;
 		MatMakeLookAt(lookat, CamTarget, CamPos, CamUp);
+		mat4f proj;
+		MatMakeOrtho2D(proj, 0.f, float(g_width), float(g_height), 0.f, 1e-2f, 1e+3);
 
+		sh.SetConstant(GLSLCONSTANTS::MAT4F, "proj", proj.value);
 		sh.SetConstant(GLSLCONSTANTS::MAT4F, "lookat", lookat.value);
 	
 		

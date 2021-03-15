@@ -152,6 +152,17 @@ static void MatTranslate(mat4f& m, vec3f& vec) {
 	m.m34 = vec[2];
 }
 
+static void MatMakeOrtho2D(mat4f& m, float left, float right, float bottom, float top, float zNear, float zFar)
+{
+
+	m.m11 = 2.0f / (right - left);	m.m12 = 0.0f;					m.m13 = 0.0f;					m.m14 = -(right + left) / (right - left);
+	m.m21 = 0.0f;					m.m22 = 2.0f / (top - bottom);	m.m23 = 0.0f;					m.m24 = -(top + bottom) / (top - bottom);
+	m.m31 = 0.0f;					m.m32 = 0.0f;					m.m33 = -2.0f / (zFar - zNear);	m.m34 = -(zFar + zNear) / (zFar - zNear);
+	m.m41 = 0.0f;					m.m42 = 0.0f;					m.m43 = 0.0f;					m.m44 = 1.0f;
+
+}
+
+
 static void MatMakeLookAt(mat4f& m, const vec3f& CamTo, const vec3f& CamFrom, vec3f& CamUp) {
 	/* Gram–Schmidt process */
 	vec3f zaxis = CamFrom - CamTo;
